@@ -1,0 +1,187 @@
+{
+  "name": "mcp server tests",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://mcp-server:8000/call-tool",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "tool_name",
+              "value": "={{ $json.tool_name || 'summarize_csv_file' }}"
+            },
+            {
+              "name": "arguments",
+              "value": "={{ $json.arguments || { 'filename': 'sample.csv' } }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2e8a2253-ee84-4a06-bebe-5c3ed062583b",
+      "name": "MCP Server Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        340,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "eda625b5-8276-45c5-8a0e-458af8a0cd20",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        540,
+        280
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        120,
+        280
+      ],
+      "id": "efcfc1ce-3c95-4be4-be95-678579fc4392",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        760,
+        280
+      ],
+      "id": "e75662ff-2f20-466b-83bc-142b9f1c5ca9",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        620,
+        580
+      ],
+      "id": "ae64919f-1b32-4917-8227-4ccce7a7bdf2",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "VoDPlHzROxqkx4MI",
+          "name": "openai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "http://mcp-server:8000/call-tool"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        920,
+        580
+      ],
+      "id": "6ae93914-e642-4588-901c-0d4984c5cdb1",
+      "name": "MCP Client"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "MCP Server Call": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "MCP Server Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bd885eb5-9e17-42a7-a14c-99e74e0e8230",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "to_be_set"
+  },
+  "id": "DMqjtkGXEm5vlHVV",
+  "tags": []
+}

@@ -1,0 +1,107 @@
+{
+  "name": "python workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -60,
+        20
+      ],
+      "id": "c1ff7811-ee5a-4ae3-b4d0-ed6de6a07d82",
+      "name": "When chat message received",
+      "webhookId": "8a058597-a647-4f79-bd92-14ce6c28679d"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "import sys\n\nfor item in _input.all():\n  item.json.myNewField = 1\n  print(f\"Hello, {item}!\")\n\nreturn _input.all()"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        20
+      ],
+      "id": "bb6e6c78-4f7e-4f1b-b18f-023c3487148a",
+      "name": "Code",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "command": "=echo {{ $json.chatInput }}"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        400,
+        20
+      ],
+      "id": "a6528259-5fc5-4242-a0b4-6aa88b2f511d",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n  item.json.echoResult = $input.first().json.stdout\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        620,
+        20
+      ],
+      "id": "3dbdf7f8-bd33-4f2c-8789-612608a10171",
+      "name": "console echo"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "console echo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b49351b2-b379-4162-9f76-08324598cdbc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "to_be_set"
+  },
+  "id": "mIvo6KNvGuPwKAhw",
+  "tags": []
+}

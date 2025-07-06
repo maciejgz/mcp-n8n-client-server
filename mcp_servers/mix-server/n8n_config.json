@@ -1,0 +1,53 @@
+{
+  "name": "MCP Mix Server",
+  "description": "MCP server for CSV and Parquet file operations",
+  "version": "1.0.0",
+  "endpoints": {
+    "base_url": "http://mcp-server:8000",
+    "websocket_url": "ws://mcp-server:8000/ws",
+    "health": "/health",
+    "tools": "/tools",
+    "mcp_protocol": "/mcp",
+    "call_tool": "/call-tool",
+    "test_connection": "/test-connection",
+    "n8n_integration": "/n8n",
+    "sse": "/sse"
+  },
+  "n8n_configuration": {
+    "server_type": "HTTP",
+    "connection_urls": [
+      "http://mcp-server:8000/mcp",
+      "http://localhost:8000/mcp",
+      "ws://mcp-server:8000/ws",
+      "ws://localhost:8000/ws"
+    ],
+    "instructions": "Use HTTP endpoint for REST API or WebSocket endpoint for real-time MCP protocol communication"
+  },
+  "tools": [
+    {
+      "name": "summarize_csv_file",
+      "description": "Summarize a CSV file by reporting its number of rows and columns",
+      "parameters": {
+        "filename": {
+          "type": "string",
+          "description": "Name of the CSV file in the /data directory"
+        }
+      }
+    },
+    {
+      "name": "summarize_parquet_file", 
+      "description": "Summarize a Parquet file by reporting its number of rows and columns",
+      "parameters": {
+        "filename": {
+          "type": "string",
+          "description": "Name of the Parquet file in the /data directory"
+        }
+      }
+    }
+  ],
+  "docker": {
+    "image": "mix-server:latest",
+    "port": 8000,
+    "build_command": "docker build -t mix-server ."
+  }
+}

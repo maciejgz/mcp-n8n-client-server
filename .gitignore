@@ -1,0 +1,163 @@
+# Global .gitignore for n8n workspace
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.pyd
+*.env
+.env*
+.venv/
+venv/
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+*.log
+*.sqlite3
+*.db
+*.DS_Store
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# VS Code
+.vscode/
+.history/
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Misc
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.old
+
+# Local files
+local-files/
+
+# Ignore data and output files
+*.parquet
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.jsonl
+*.out
+*.log
+
+# Ignore test output
+coverage/
+*.cover
+*.py,cover
+.hypothesis/
+
+# Ignore IDE files
+.idea/
+*.iml
+
+# Ignore compiled files
+*.so
+*.dll
+*.exe
+*.o
+*.a
+*.out
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore backup files
+*~
+*.bak
+*.tmp
+*.swp
+*.swo
+
+# Ignore system files
+Icon?
+
+# Ignore Python bytecode
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore pipenv
+Pipfile.lock
+
+# Ignore poetry
+poetry.lock
+
+# Ignore test cache
+.pytest_cache/
+
+# Ignore test results
+junit-*.xml
+
+# Ignore environment files
+.envrc
+.env.*.local
+
+# Ignore logs
+*.log
+
+# Ignore output
+output/
+
+# Ignore data
+*.dat
+*.data
+
+# Ignore cache
+.cache/
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore backup files
+*.bak
+
+# Ignore coverage reports
+.coverage
+coverage.xml
+
+# Ignore mypy
+.mypy_cache/
+.dmypy.json
+
+# Ignore pyright
+pyrightconfig.json
+
+# Ignore pip cache
+pip-wheel-metadata/
+
+# Ignore test files
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts

@@ -1,0 +1,17 @@
+FROM docker.n8n.io/n8nio/n8n:latest
+
+# Switch to root to install packages
+USER root
+
+# Install Python and UV (using Alpine package manager)
+RUN apk add --no-cache python3 py3-pip curl && \
+    pip3 install uv --break-system-packages
+
+# Install common MCP dependencies globally
+RUN pip3 install httpx mcp[cli] fastapi uvicorn pydantic --break-system-packages
+
+# Switch back to n8n user
+USER node
+
+# Set working directory
+WORKDIR /home/node
