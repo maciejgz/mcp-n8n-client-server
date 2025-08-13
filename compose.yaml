@@ -50,7 +50,7 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ./mcp_servers/mix-server/data:/app/data
-    restart: unless-stopped
+    restart: no
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -65,7 +65,9 @@ services:
     # No port mapping needed for stdio MCP server
     environment:
       - PYTHONUNBUFFERED=1
-    restart: unless-stopped
+    restart: no
+    ports:
+      - "8001:8001"
     healthcheck:
       test: ["CMD", "python", "-c", "import weather; print('OK')"]
       interval: 30s
