@@ -1,0 +1,12 @@
+[project]
+name = "weather-mcp-server"
+version = "0.1.0"
+description = "MCP server for fetching weather data for a given city"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp",
+    "requests",
+    "fastapi",
+    "uvicorn",
+]

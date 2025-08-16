@@ -50,7 +50,8 @@ You are an agent - keep going until the user’s query is completely resolved. P
 - **Data Directory Structure**: Each MCP server may have its own `data/` folder for local files.
 - **Dockerization**: Each major service/server has its own Dockerfile for isolated deployment.
 - **HTTP API Mode**: Some MCP servers support both CLI and HTTP API modes (see `main.py`/`start.py`).
-- **Polish/English Docs**: Some documentation is in Polish (e.g., `mix-server/README.md`).
+- **English Docs**: Always use English for documentation, comments, and code.
+
 
 ## Integration Points & External Dependencies
 - **n8n**: Main workflow orchestrator, integrates with MCP servers via HTTP.
