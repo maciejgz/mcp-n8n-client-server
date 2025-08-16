@@ -30,50 +30,11 @@ services:
       - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
       - N8N_MCP_ENABLED=true
-      - N8N_MCP_SERVERS='{"weather":{"command":"uv","args":["run","python","weather.py"],"cwd":"/mcp_servers/weather"}}'
     volumes:
       - n8n_data:/home/node/.n8n
       - ./local-files:/files
       - ./python_scripts:/python_scripts
-      - ./mcp_servers:/mcp_servers
-    depends_on:
-      - mcp-server
-      - weather-mcp-server
 
-  mcp-server:
-    build:
-      context: ./mcp_servers/mix-server
-      dockerfile: Dockerfile
-    ports:
-      - "127.0.0.1:8000:8000"
-    environment:
-      - PYTHONUNBUFFERED=1
-    volumes:
-      - ./mcp_servers/mix-server/data:/app/data
-    restart: no
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-
-  weather-mcp-server:
-    build:
-      context: ./mcp_servers/weather
-      dockerfile: Dockerfile
-    # No port mapping needed for stdio MCP server
-    environment:
-      - PYTHONUNBUFFERED=1
-    restart: no
-    ports:
-      - "8001:8001"
-    healthcheck:
-      test: ["CMD", "python", "-c", "import weather; print('OK')"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
 volumes:
   n8n_data:
