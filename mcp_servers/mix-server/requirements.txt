@@ -1,8 +1,0 @@
-pandas
-pyarrow
-mcp[cli]
-fastapi
-uvicorn[standard]
-pydantic
-requests
-fastmcp

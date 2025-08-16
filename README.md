@@ -18,7 +18,6 @@ This workspace provides a robust environment for building, running, and integrat
 ├── js_scripts/                 # Node.js scripts for automation
 ├── local-files/                # Local data and files (gitignored)
 ├── mcp_servers/                # MCP (Model Context Protocol) servers
-│   ├── mix-server/             # Example: Mix server (Python)
 │   └── weather/                # Weather MCP server (Python, FastAPI)
 ├── nginx-config/               # Nginx configuration for reverse proxy
 ├── python_scripts/             # Standalone Python scripts (e.g., stock fetcher)
