@@ -34,6 +34,18 @@ services:
       - n8n_data:/home/node/.n8n
       - ./local-files:/files
       - ./python_scripts:/python_scripts
+    depends_on:
+      - weather-mcp-server
+
+  weather-mcp-server:
+    build:
+      context: ./mcp_servers/weather-mcp-server
+      dockerfile: Dockerfile.weathermcpserver
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
 
 
 volumes:

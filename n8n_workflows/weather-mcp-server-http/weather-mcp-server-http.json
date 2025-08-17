@@ -1,0 +1,127 @@
+{
+  // n8n workflow: Integrates OpenAI chat, an AI agent, and a weather MCP server.
+  // When a chat message is received, it triggers the AI Agent node.
+  // The AI Agent uses OpenAI's GPT-4.1-mini model for language understanding.
+  // The workflow also connects to a weather MCP server via HTTP for weather data.
+  // Node descriptions:
+  // - 'When chat message received': Triggers workflow on chat message.
+  // - 'OpenAI Chat Model': Provides LLM capabilities using OpenAI API.
+  // - 'AI Agent': Orchestrates AI actions and tool usage.
+  // - 'weather-mcp-server': Connects to weather MCP server for weather info.
+  "name": "weather-mcp-server-http",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "aa4d4c5b-eb51-4f0a-bf25-6b5b050f4a63",
+      "name": "When chat message received",
+      "webhookId": "9c2b7157-05e1-4f34-b170-2a4d5d391b43"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1e83fa75-a003-4124-bc4e-1e3d4ac8b3c0",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        208
+      ],
+      "id": "98c8ed18-203f-4bb3-bcdc-09e4f7b7700b",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "VoDPlHzROxqkx4MI",
+          "name": "openai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://weather-mcp-server:8000/mcp",
+        "serverTransport": "httpStreamable",
+        "include": "selected"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        224
+      ],
+      "id": "a89a39f2-848f-43e2-857f-4ddcd467befb",
+      "name": "weather-mcp-server"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "weather-mcp-server": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "271a7bfd-7696-42f8-afcc-282cb90b7477",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "292107511bc3cdf92de92bb2c66f394d632e03b8d473ea21584a8fd1d7093bc6"
+  },
+  "id": "zAjtWy0E0UsH0lxr",
+  "tags": []
+}

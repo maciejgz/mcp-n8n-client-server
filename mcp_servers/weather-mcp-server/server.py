@@ -105,9 +105,10 @@ def main():
         test_get_current_weather()
         return
     if args.http:
+        print("Starting HTTP MCP server...")
         mcp.run(transport="http", host=args.host, port=args.port)
     else:
-        print("Starting stdio server")
+        print("Starting stdio MCP server...")
         mcp.run()
 
 if __name__ == "__main__":

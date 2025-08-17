@@ -31,8 +31,7 @@ docker-compose logs --tail=20
 echo.
 echo Services started successfully!
 echo n8n is available at: http://localhost:5678
-echo MCP Mix Server is available at: http://localhost:8000
-echo Weather MCP Server is available at: http://localhost:8001
+echo Weather MCP Server is available at: http://localhost:8000
 echo.
 echo To stop services: docker-compose down
 echo To view logs: docker-compose logs -f
