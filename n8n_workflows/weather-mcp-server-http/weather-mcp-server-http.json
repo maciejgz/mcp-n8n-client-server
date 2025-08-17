@@ -1,13 +1,4 @@
 {
-  // n8n workflow: Integrates OpenAI chat, an AI agent, and a weather MCP server.
-  // When a chat message is received, it triggers the AI Agent node.
-  // The AI Agent uses OpenAI's GPT-4.1-mini model for language understanding.
-  // The workflow also connects to a weather MCP server via HTTP for weather data.
-  // Node descriptions:
-  // - 'When chat message received': Triggers workflow on chat message.
-  // - 'OpenAI Chat Model': Provides LLM capabilities using OpenAI API.
-  // - 'AI Agent': Orchestrates AI actions and tool usage.
-  // - 'weather-mcp-server': Connects to weather MCP server for weather info.
   "name": "weather-mcp-server-http",
   "nodes": [
     {
